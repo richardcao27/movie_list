@@ -1,21 +1,54 @@
 import React from 'react';
 
-var Search = props => (
-  <div>
-    <input
-      onChange={() => {}}
-      type="text"
-      id="searchTerm"
-      placeholder="Search..."
-    />
-    <button
-      onClick={() => {
-        // getResults(props, document.getElementById('searchTerm').value);
-      }}
-    >
-      GO!
-    </button>
-  </div>
-);
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: ''
+    };
+  }
+
+  handleInputChange(e) {
+    this.props.handleSearchInputChange(e.target.value);
+    this.setState({
+      value: e.target.value
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          className="form-control"
+          type="text"
+          value={this.state.value}
+          onChange={this.handleInputChange.bind(this)}
+        />
+        <button className="btn hidden-sm-down">
+          <span className="glyphicon glyphicon-search"></span>
+        </button>
+      </div>
+    );
+  }
+}
+
+// var Search = props => (
+//   <div>
+//     <input
+//       onChange={() => {}}
+//       type="text"
+//       id="searchTerm"
+//       placeholder="Search..."
+//     />
+//     <button
+//       onClick={() => {
+//         // reduce list to search term
+//       }}
+//     >
+//       GO!
+//     </button>
+//   </div>
+// );
 
 export default Search;

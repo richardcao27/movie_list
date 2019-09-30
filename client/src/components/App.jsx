@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieList from './MovieList.jsx';
 import Search from './Search.jsx';
+// import '../../dist/styles.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,18 +11,22 @@ class App extends React.Component {
     };
   }
 
+  searchList(searchTerm) {
+    this.setState({
+      currentList: searchTerm
+    });
+  }
   render() {
     return (
       <div>
         <nav className="navbar">
-          <div className="row">
-            <div className="col-md-6 offset-md-3">
-              {/* <Search callback={this.onSuccessfulSearch} onInputChange={this.onInputChange}/> */}
-              <Search onInputChange={this.onInputChange} />
+          <div>
+            <div>
+              <Search handleSearchInputChange={this.searchList.bind(this)} />
             </div>
           </div>
         </nav>
-        <table className="table">
+        <table className="movie-list">
           <MovieList movies={this.state.currentList} />
         </table>
       </div>

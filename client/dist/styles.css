@@ -1,0 +1,17 @@
+body {
+  text-align: center;
+}
+
+.title {
+  background: #0e88b1;
+}
+
+.movie-list {
+  margin: 75px 160px;
+  text-align: center;
+}
+
+.table {
+  border: 1px solid black;
+  text-align: center;
+}

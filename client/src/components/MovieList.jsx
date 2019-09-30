@@ -5,7 +5,7 @@ const MovieList = props => {
   return (
     <tbody>
       {props.movies.map(movie => (
-        <tr>
+        <tr className="table">
           <MovieListItem movie={movie} key={movie} />
         </tr>
       ))}
