@@ -9,9 +9,19 @@ body {
 .movie-list {
   margin: 75px 160px;
   text-align: center;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .table {
+  margin: auto;
   border: 1px solid black;
   text-align: center;
+}
+
+.row {
+  padding: 100px 100px;
+  background-color: blue;
+  text-align: center;
+  float: right;
 }

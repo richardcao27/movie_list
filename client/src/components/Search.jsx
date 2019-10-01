@@ -7,10 +7,16 @@ class Search extends React.Component {
     this.state = {
       value: ''
     };
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleInputChange(e) {
-    this.props.handleSearchInputChange(e.target.value);
+    console.log('eTargetValue: ', e.target.value);
+    console.log(
+      'documentGetElemenybyID: ',
+      document.getElementById('input').value
+    );
+    this.props.handleSearchInputChange(document.getElementById('input').value);
     this.setState({
       value: e.target.value
     });
@@ -22,10 +28,15 @@ class Search extends React.Component {
         <input
           className="form-control"
           type="text"
-          value={this.state.value}
-          onChange={this.handleInputChange.bind(this)}
+          id="input"
+          placeholder="Search movie.."
         />
-        <button className="btn hidden-sm-down">
+        <button
+          className="btn hidden-sm-down"
+          onClick={this.handleInputChange}
+          placeholder="Go!"
+        >
+          GO!
           <span className="glyphicon glyphicon-search"></span>
         </button>
       </div>
