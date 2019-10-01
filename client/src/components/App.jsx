@@ -7,16 +7,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filteredList: [],
       currentList: this.props.data
     };
+    // this.props.originalList = this.props.data;
     this.searchList = this.searchList.bind(this);
     this.addMovie = this.addMovie.bind(this);
   }
 
   searchList(searchTerm) {
     //filter the currentlist
-    let list = this.state.currentList;
+    let list = this.props.data;
 
     let updatedList = list.filter(movie =>
       movie.title.toLowerCase().includes(searchTerm.toLowerCase())

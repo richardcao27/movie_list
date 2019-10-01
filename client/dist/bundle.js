@@ -9644,9 +9644,9 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      filteredList: [],
       currentList: _this.props.data
     };
+    // this.props.originalList = this.props.data;
     _this.searchList = _this.searchList.bind(_this);
     _this.addMovie = _this.addMovie.bind(_this);
     return _this;
@@ -9656,7 +9656,7 @@ var App = function (_React$Component) {
     key: 'searchList',
     value: function searchList(searchTerm) {
       //filter the currentlist
-      var list = this.state.currentList;
+      var list = this.props.data;
 
       var updatedList = list.filter(function (movie) {
         return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
