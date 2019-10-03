@@ -6,7 +6,11 @@ const MovieList = props => {
     <tbody>
       {props.movies.map(movie => (
         <tr className="table">
-          <MovieListItem movie={movie} key={movie} />
+          <MovieListItem
+            movie={movie}
+            item={props.handleDeleteMovie}
+            key={movie}
+          />
         </tr>
       ))}
     </tbody>

@@ -19,6 +19,11 @@ body {
   text-align: center;
 }
 
+#header {
+  font-size: 32px;
+  padding-bottom: 10px;
+}
+
 .row {
   padding: 100px 100px;
   background-color: blue;
