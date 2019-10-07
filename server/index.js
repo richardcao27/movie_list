@@ -14,8 +14,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.json());
 app.get('/movies', controller.getAllMovies);
-app.post('/add', controller.postMovie);
-app.post('/remove', controller.deleteMovie);
+app.post('/movies', controller.postMovie);
+app.delete('/movies', controller.deleteMovie);
 // app.get('/movies', (req, res) => {
 //   res.send('woooo');
 // });

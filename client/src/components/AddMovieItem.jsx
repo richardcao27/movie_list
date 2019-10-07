@@ -4,7 +4,7 @@ class AddMovieItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      query: ''
     };
     this.handleAddMovie = this.handleAddMovie.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -12,13 +12,14 @@ class AddMovieItem extends React.Component {
 
   handleAddMovie(e) {
     e.preventDefault();
-    console.log('adding movie (etargetvalue) ', this.state.value);
-    this.props.handleMovieSubmit(this.state.value);
+    console.log('adding movie (etargetquery) ', this.state.query);
+    this.props.handleMovieSubmit(this.state.query);
   }
 
   changeHandler(e) {
+    console.log(e.target.type);
     this.setState({
-      value: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
@@ -28,7 +29,7 @@ class AddMovieItem extends React.Component {
         <input
           type="text"
           placeholder="Add Movie"
-          name="movieItem"
+          name="query"
           onChange={this.changeHandler}
         />
         <input type="submit" />

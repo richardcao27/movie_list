@@ -7,6 +7,7 @@ module.exports = {
       if (err) {
         console.log('Could not query from database!');
       }
+
       res.send(data);
     });
   },
@@ -17,12 +18,14 @@ module.exports = {
       if (err) {
         console.log('Server could not post to database!');
       } else {
-        console.log('Successful insert!');
+        res.sendStatus(200);
       }
     });
   },
   removeMovieFromDB: (req, res) => {
     console.log(`Removing ${req.body.title}`);
+    // const queryString = `DELETE FROM movieTable WHERE title = VALUES(?)`;
+    // const queryArgs = [req.body.title];
     const queryString = `DELETE FROM movieTable WHERE title = "${req.body.title}"`;
     db.query(queryString, (err, data) => {
       if (err) {
@@ -31,5 +34,9 @@ module.exports = {
         console.log('Removed movie from db!');
       }
     });
+  },
+
+  updateMovieFromDB: (req, res) => {
+    console.log();
   }
 };

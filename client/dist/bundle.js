@@ -10491,12 +10491,15 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      currentList: []
+      currentList: [],
+      totalList: []
     };
     // this.props.originalList = this.props.data;
     _this.searchList = _this.searchList.bind(_this);
     _this.addMovie = _this.addMovie.bind(_this);
     _this.deleteMovie = _this.deleteMovie.bind(_this);
+    _this.handleUnwatchedList = _this.handleUnwatchedList.bind(_this);
+    _this.handleWatchedList = _this.handleWatchedList;
     return _this;
   }
 
@@ -10508,7 +10511,7 @@ var App = function (_React$Component) {
       if (searchTerm === '') {
         this.retrieveData();
       } else {
-        var list = this.state.currentList;
+        var list = this.state.currentList.slice();
 
         var updatedList = list.filter(function (movie) {
           return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -10535,7 +10538,7 @@ var App = function (_React$Component) {
       // this.setState({
       //   currentList: newArr
       // });
-      _axios2.default.post('/add', {
+      _axios2.default.post('/movies', {
         title: searchTerm
       }).then(function (res) {
         console.log('Adding ' + res.data + ' database!');
@@ -10552,8 +10555,7 @@ var App = function (_React$Component) {
     key: 'deleteMovie',
     value: function deleteMovie(movie) {
       console.log('Clicked on: ', movie);
-
-      _axios2.default.post('/remove', {
+      _axios2.default.post('/movies', {
         title: movie
       }).then(function (res) {
         console.log('deleted movie from db!');
@@ -10564,6 +10566,12 @@ var App = function (_React$Component) {
       });
       this.retrieveData();
     }
+  }, {
+    key: 'handleWatchedList',
+    value: function handleWatchedList() {}
+  }, {
+    key: 'handleUnwatchedList',
+    value: function handleUnwatchedList() {}
   }, {
     key: 'retrieveData',
     value: function retrieveData() {
@@ -10607,6 +10615,16 @@ var App = function (_React$Component) {
             'caption',
             { id: 'header' },
             'Current List'
+          ),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Watched'
+          ),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Unwatched'
           ),
           _react2.default.createElement(_MovieList2.default, {
             movies: this.state.currentList,
@@ -11424,6 +11442,8 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -11439,7 +11459,7 @@ var AddMovieItem = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (AddMovieItem.__proto__ || Object.getPrototypeOf(AddMovieItem)).call(this, props));
 
     _this.state = {
-      value: ''
+      query: ''
     };
     _this.handleAddMovie = _this.handleAddMovie.bind(_this);
     _this.changeHandler = _this.changeHandler.bind(_this);
@@ -11450,15 +11470,14 @@ var AddMovieItem = function (_React$Component) {
     key: 'handleAddMovie',
     value: function handleAddMovie(e) {
       e.preventDefault();
-      console.log('adding movie (etargetvalue) ', this.state.value);
-      this.props.handleMovieSubmit(this.state.value);
+      console.log('adding movie (etargetquery) ', this.state.query);
+      this.props.handleMovieSubmit(this.state.query);
     }
   }, {
     key: 'changeHandler',
     value: function changeHandler(e) {
-      this.setState({
-        value: e.target.value
-      });
+      console.log(e.target.type);
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
   }, {
     key: 'render',
@@ -11469,7 +11488,7 @@ var AddMovieItem = function (_React$Component) {
         _react2.default.createElement('input', {
           type: 'text',
           placeholder: 'Add Movie',
-          name: 'movieItem',
+          name: 'query',
           onChange: this.changeHandler
         }),
         _react2.default.createElement('input', { type: 'submit' })

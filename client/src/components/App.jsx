@@ -8,12 +8,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentList: []
+      currentList: [],
+      totalList: []
     };
     // this.props.originalList = this.props.data;
     this.searchList = this.searchList.bind(this);
     this.addMovie = this.addMovie.bind(this);
     this.deleteMovie = this.deleteMovie.bind(this);
+    this.handleUnwatchedList = this.handleUnwatchedList.bind(this);
+    this.handleWatchedList = this.handleWatchedList;
   }
 
   searchList(searchTerm) {
@@ -22,7 +25,7 @@ class App extends React.Component {
     if (searchTerm === '') {
       this.retrieveData();
     } else {
-      let list = this.state.currentList;
+      let list = this.state.currentList.slice();
 
       let updatedList = list.filter(movie =>
         movie.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -49,7 +52,7 @@ class App extends React.Component {
     //   currentList: newArr
     // });
     axios
-      .post('/add', {
+      .post('/movies', {
         title: searchTerm
       })
       .then(res => {
@@ -65,9 +68,8 @@ class App extends React.Component {
   //movie title string
   deleteMovie(movie) {
     console.log('Clicked on: ', movie);
-
     axios
-      .post('/remove', {
+      .post('/movies', {
         title: movie
       })
       .then(res => {
@@ -80,6 +82,12 @@ class App extends React.Component {
       });
     this.retrieveData();
   }
+
+  handleWatchedList() {
+    
+  }
+
+  handleUnwatchedList() {}
 
   retrieveData() {
     axios
@@ -112,6 +120,8 @@ class App extends React.Component {
 
         <table className="movie-list">
           <caption id="header">Current List</caption>
+          <button>Watched</button>
+          <button>Unwatched</button>
           <MovieList
             movies={this.state.currentList}
             handleDeleteMovie={this.deleteMovie}
